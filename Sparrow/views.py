@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 from django.shortcuts import render
+import os
 
 # Create your views here.
 import json, pickle
@@ -34,4 +35,17 @@ def search(request):
 
 def play_song(request, song_id):
 	song_info = songinfo_loader.return_songinfo(song_id)
+	if request.user.is_authenticated():
+		user_history = {}
+		if os.path.isfile('static/user_history/{}.json'.format(request.user.id)):
+			f = open('static/user_history/{}.json'.format(request.user.id), 'r', encoding="utf-8")
+			user_history = json.load(f)
+			f.close()
+		if song_id in user_history:
+			user_history[song_id] = user_history[song_id] + 1
+		else:
+			user_history[song_id] = 1
+		with open('static/user_history/{}.json'.format(request.user.id), 'w') as f:
+			json.dump(user_history, f)
+
 	return render(request, 'song.html', {'song_info':song_info})
