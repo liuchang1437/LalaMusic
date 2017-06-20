@@ -11,6 +11,28 @@
 .media-body td{
     width:30%;
 }
+hr.music-style {
+    padding: 0;
+    border: none;
+    border-top: medium double #505050;
+    color: #E80050;
+    text-align: center;
+    margin-bottom: 60px;
+}
+hr.music-style:after {
+    content: "\266A";
+    display: inline-block;
+    position: relative;
+    top: -0.7em;
+    font-size: 5em;
+    padding: 0 0.25em;
+    background: white;
+}
+
+/* 分隔线统一样式 */
+hr{
+  margin: 40px 0;
+}
 /*.footer{
     position:absolute;
     padding-top:19px;

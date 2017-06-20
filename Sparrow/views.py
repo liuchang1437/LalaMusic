@@ -7,9 +7,6 @@ from django.shortcuts import render
 import json, pickle
 from django.http import HttpResponse
 
-def index(request):
-	return render(request, 'home.html')
-
 from SearchEngine import dosearch
 
 def search(request):
@@ -34,3 +31,6 @@ def search(request):
 			items = paginator.page(paginator.num_pages)
 		return render(request, 'search.html', {'items': items})
 	return render(request, 'search.html', {'items': items})
+
+def play_song(request, song_id):
+	return render(request, 'song.html')
