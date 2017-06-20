@@ -1,10 +1,26 @@
 {% extends 'base.html' %}
-
+{% block title %}LaLa Music - {{ song_info.SongName }}{% endblock %}
 {% block content %}
     <div class="row">
-        <audio controls="controls">
-            <source src="/static/mp3/1.mp3" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
+        <div class="col-md-7 col-md-offset-2">
+            <div class="col-md-6 col-md-offset-1">
+                <a href="#">
+                    <img class="album media-object" src= {{ song_info.AlbumPic }} alt="{{ song_info.SongName }}"/>
+                </a>
+            </div>
+            <div class="col-md-5">
+                <h1>{{song_info.SongName}}</h1>
+                <p>{{song_info.Artist}}</p>
+                <p>「{{song_info.Album}}」</p>
+                <audio class="player" controls="controls">
+                    <source src="/static/mp3/1.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+        </div>
+        <div class="col-md-7 col-md-offset-2">
+            <textarea class="lyric" readonly="readonly">{{song_info.Lyric}}</textarea>
+        </div>
     </div>
+        
 {% endblock %}

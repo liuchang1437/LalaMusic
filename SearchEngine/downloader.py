@@ -38,8 +38,9 @@ download_record = []
 f = open('../music_download/download_record.txt', 'rb')
 download_record = pickle.load(f)
 f.close()
+length = len(download_record)
 
-for file_name in glob.glob('../crawedmusic/*.json'):
+for file_name in glob.glob('../music_test/*.json'):
     f = open(file_name, 'r', encoding="utf-8")
     song_info = json.load(f)
     if song_info['SongID'] in download_record:
@@ -54,9 +55,19 @@ for file_name in glob.glob('../crawedmusic/*.json'):
         download_link = soup.find('a', attrs = {'href':re.compile(".*\.mp3")})
         if (download_link != None):
             #print(download_link.string)
-            print("download", song_info['SongID'], "from", download_link.string)
-            urllib.request.urlretrieve(download_link.string, '../music_download/' + song_info['SongID'] + '.mp3')
+            try:
+                print("download", song_info['SongID'], "from", download_link.string)
+                urllib.request.urlretrieve(download_link.string, '../music_download/' + song_info['SongID'] + '.mp3')
+            except:
+                print("Error happend. Try again.")
+                time.sleep(5)
+                soup = BeautifulSoup(_session_mp3.get(song_url).content, "lxml")
+                download_link = soup.find('a', attrs = {'href':re.compile(".*\.mp3")})
+                print("download", song_info['SongID'], "from", download_link.string)
+                urllib.request.urlretrieve(download_link.string, '../music_download/' + song_info['SongID'] + '.mp3')
+        length = length + 1
+        print(length, " songs are downloaded.")
         f = open('../music_download/download_record.txt', 'wb')
         pickle.dump(download_record, f)
         f.close()
-        time.sleep(2)
+        #time.sleep(2)

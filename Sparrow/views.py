@@ -7,7 +7,7 @@ from django.shortcuts import render
 import json, pickle
 from django.http import HttpResponse
 
-from SearchEngine import dosearch
+from SearchEngine import dosearch,songinfo_loader
 
 def search(request):
 	stype = ''
@@ -33,4 +33,5 @@ def search(request):
 	return render(request, 'search.html', {'items': items})
 
 def play_song(request, song_id):
-	return render(request, 'song.html')
+	song_info = songinfo_loader.return_songinfo(song_id)
+	return render(request, 'song.html', {'song_info':song_info})

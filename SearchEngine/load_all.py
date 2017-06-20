@@ -5,7 +5,7 @@ from jieba.analyse import ChineseAnalyzer
 
 analyzer = ChineseAnalyzer()
 
-for file_name in glob.glob('../crawedmusic/*.json'):
+for file_name in glob.glob('../music_test/*.json'):
     f = open(file_name, 'r', encoding="utf-8")
     song_info = json.load(f)
     print(song_info)
