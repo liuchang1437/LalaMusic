@@ -9,6 +9,7 @@ from whoosh.qparser import FuzzyTermPlugin
 from whoosh.qparser import OrGroup
 from whoosh import scoring
 from whoosh import sorting
+from whoosh import highlight
 import jieba
 import pickle
 #from myanalyzer import ChineseAnalyzer, ChineseAnalyzer_LYRIC
@@ -120,6 +121,45 @@ def dosearch(input_query):
             song_dict['Lyric'] = hit['Lyric']
             song_dict['Comments'] = hit['Comments']
             song_dict['AlbumPic'] = hit['AlbumPic']
+            return_results.append(song_dict)
+        return return_results
+
+def dosearch_lyric(input_query):
+    if os.path.exists("static/musicIndex"):
+        ix = open_dir("static/musicIndex")
+    else:
+        print("cannot find musicIndex")
+        return None
+
+    parser = QueryParser("Lyric", schema=ix.schema)
+    input_query = stem(input_query)
+    query = parser.parse(input_query)
+    print("query is", query)
+
+    with ix.searcher() as searcher:
+        results = searcher.search(query, limit=100)
+        #results.fragmenter = highlight.WholeFragmenter()
+        #results.fragmenter = highlight.SentenceFragmenter()
+        results.fragmenter = highlight.ContextFragmenter(surround=30)
+        results.fragmenter.charlimit = None
+        results.formatter = highlight.HtmlFormatter(tagname = 'font color="red"')
+        results.order = highlight.SCORE
+        #results = searcher.search(query, limit=None, sortedby=comment)
+        return_results = []
+        for hit in results:
+            #print(len(hit))
+            #print(hit[0])
+            #print(hit['SongID'], '-', hit['SongName'], "-", hit['Artist'], "-", hit['Comments'])
+            song_dict = {'SongID':'', 'SongName':'', 'Artist':'', 'Album':'', 'Lyric':'', 'Comments':'',\
+                         'AlbumPic':'', 'Highlights':''}
+            song_dict['SongID'] = hit['SongID']
+            song_dict['SongName'] = hit['SongName']
+            song_dict['Artist'] = hit['Artist']
+            song_dict['Album'] = hit['Album']
+            song_dict['Lyric'] = hit['Lyric']
+            song_dict['Comments'] = hit['Comments']
+            song_dict['AlbumPic'] = hit['AlbumPic']
+            song_dict['Highlights'] = hit.highlights("Lyric", top = 1)
             return_results.append(song_dict)
         return return_results
 

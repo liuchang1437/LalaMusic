@@ -7,6 +7,7 @@
 }
 .album-image{
     width:64px;
+    box-shadow: 2px 2px 2px #888888;
 }
 .media-body td{
     width:30%;
@@ -20,7 +21,7 @@ hr.music-style {
     margin-bottom: 60px;
 }
 hr.music-style:after {
-    content: "\266A";
+    content: "\266C";
     display: inline-block;
     position: relative;
     top: -0.7em;
@@ -66,4 +67,13 @@ html, body {
   margin: 0;
   padding: 0;
   height: 100%;
+}
+.highlights{
+    padding-left: 8px;
+    padding-top: 8px;
+}
+
+#recordingslist audio {
+    display: block;
+    margin-bottom: 10px;
 }

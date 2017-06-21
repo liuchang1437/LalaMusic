@@ -31,6 +31,21 @@ def search(request):
 			# If page is out of range (e.g. 9999), deliver last page of results.
 			items = paginator.page(paginator.num_pages)
 		return render(request, 'search.html', {'items': items})
+	if stype and stype=='Lyrics':
+		items = dosearch.dosearch_lyric(svalue)
+		for item in items:
+			item['Highlights'] = item['Highlights'].replace('\n','<br>')
+		paginator = Paginator(items, 25) # Show 25 contacts per page
+		page = request.GET.get('page')
+		try:
+			items = paginator.page(page)
+		except PageNotAnInteger:
+			# If page is not an integer, deliver first page.
+			items = paginator.page(1)
+		except EmptyPage:
+			# If page is out of range (e.g. 9999), deliver last page of results.
+			items = paginator.page(paginator.num_pages)
+		return render(request, 'search.html', {'items': items})
 	return render(request, 'search.html', {'items': items})
 
 def play_song(request, song_id):
