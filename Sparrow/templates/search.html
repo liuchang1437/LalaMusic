@@ -7,9 +7,14 @@
             <div class="media col-md-7 col-md-offset-2">
                 {% if item.AlbumPic %}
                 <div class="media-left">
-                    
                 <a href="/search/song/{{item.SongID}}/">
                     <img class = "album-image media-object" src= {{ item.AlbumPic }} alt="{{ item.SongName }}"/>
+                </a>
+                </div>
+                {% else %}
+                <div class="media-left">
+                <a href="/search/song/{{item.SongID}}/">
+                    <img class = "album-image media-object" src="/static/album.jpeg"  alt="{{ item.SongName }}"/>
                 </a>
                 </div>
                 {% endif %}
