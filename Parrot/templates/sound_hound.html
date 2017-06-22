@@ -2,22 +2,16 @@
 {% block title %}LaLa Music{% endblock %}
 {% block content %}
     <div class="row">
-        <div class="col-md-7 col-md-offset-2">
-            <h1>Recorder.js simple WAV export example</h1>
-
-            <p>Make sure you are using a recent version of Google Chrome.</p>
-            <p>Also before you enable microphone input either plug in headphones or turn the volume down if you want to avoid ear splitting feedback!</p>
-
-            <button onclick="startRecording(this);">record</button>
-            <button onclick="stopRecording(this);" disabled>stop</button>
-
-            <h2>Recordings</h2>
-            <ul id="recordingslist"></ul>
-
-            <h2>Log</h2>
-            <pre id="log"></pre>
-
-            <script src="/static/js/my.js"></script>
+        <div class="col-md-4 col-md-offset-5">
+            <form enctype="multipart/form-data" action="/recognize/" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="exampleInputFile">Upload your mp3 file</label>
+                    <input type="file" id="exampleInputFile" name="mp3file">
+                    <p class="help-block">Upload a mp3/wma file and find which song it is!</p>
+                </div>
+                <button type="submit" class="btn btn-default">Go</button>
+            </form>
         </div>
         
     </div>

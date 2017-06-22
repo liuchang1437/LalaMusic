@@ -4,12 +4,15 @@
     <div class="row">
     {% if items %}
         {% for item in items %}
-            <div class="media col-md-7 col-md-offset-3">
+            <div class="media col-md-7 col-md-offset-2">
+                {% if item.AlbumPic %}
                 <div class="media-left">
+                    
                 <a href="/search/song/{{item.SongID}}/">
                     <img class = "album-image media-object" src= {{ item.AlbumPic }} alt="{{ item.SongName }}"/>
                 </a>
                 </div>
+                {% endif %}
                 <div class="media-body">
                 <table class="table">
                 <tr>

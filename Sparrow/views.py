@@ -21,10 +21,8 @@ def hsort(items, user_history):
 		if item['SongID'] in user_history:
 			if pos >= n/2:
 				item['sid'] = pos - (8*pos/n - 3) * user_history[item['SongID']]
-				print((8*pos/n - 3) * user_history[item['SongID']])
 			else:
 				item['sid'] = pos - (2*pos-2)/(n-2) * user_history[item['SongID']]
-				print((2*pos-2)/(n-2) * user_history[item['SongID']])
 	sort_by_pos = sorted(items,key=itemgetter('sid'))
 	return sort_by_pos
 

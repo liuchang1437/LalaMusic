@@ -21,5 +21,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^account/', include('Sheep.urls')),
     url(r'^search/', include('Sparrow.urls')),
+    url(r'^recognize/', include('Parrot.urls')),
     url(r'^$', views.index, name='index')
 ]

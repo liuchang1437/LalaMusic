@@ -29,6 +29,11 @@
                         </a>
                     </div>
                     <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="/recognize" title="Recognize a song!"> 
+                            <img  src= "/static/mic.png" style="width:23px;">
+                            </a>
+                        </li>        
                         {% if request.user.is_authenticated %}
                             <li><a href="#"> {{request.user.username }} </a></li>
                             <li><a href="/account/logout/">Log out</a></li>
@@ -46,16 +51,19 @@
                 </div>
             </div>
 
+            <!--search -->
             <div class="search col-md-7 col-md-offset-3">
             <form class="form-inline" method='get' action='/search/'>
                 <select class="form-control" name='type'>
                 <option>Song/Singer</option>
                 <option>Lyrics</option>
                 </select>
-                <input name='value' type="search" style="width:60%;"class="form-control" placeholder="Search songs, singers or lyrics">
-                <button type="submit" class="btn btn-default">Search</button>
+                <input name='value' type="search" style="width:60%;" class="form-control" placeholder="Search songs, singers or lyrics">
+                <button type="submit" class="btn btn-default">Search</button> 
             </form>
             </div>
+
+            <!--seperator-->
             <div class="row">
                 <div class=" col-md-8 col-md-offset-2">
                     <hr class="music-style">
