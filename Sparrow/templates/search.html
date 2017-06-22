@@ -4,7 +4,7 @@
     <div class="row">
     {% if items %}
         {% for item in items %}
-            <div class="media col-md-7 col-md-offset-2">
+            <div class="media col-md-7 col-md-offset-2" style="margin-left:250px;">
                 {% if item.AlbumPic %}
                 <div class="media-left">
                 <a href="/search/song/{{item.SongID}}/">
@@ -21,9 +21,24 @@
                 <div class="media-body">
                 <table class="table">
                 <tr>
-                    <td><a href="/search/song/{{item.SongID}}/">{{item.SongName}}</a></td>
-                    <td>{{item.Artist}}</td>
-                    <td>「{{item.Album}}」</td>
+                    <td width="25%;"><a href="/search/song/{{item.SongID}}/">{{item.SongName}}</a></td>
+                    <td width="25%;">{{item.Artist}}</td>
+                    <td width="25%;">「{{item.Album}}」</td>
+                    <td  width="40%;">
+                            <i class="star-1">★</i>
+                            {% if item.Comments > 500 %}
+                            <i class="star-2">★</i>
+                            {%  endif %}
+                            {% if item.Comments > 2000 %}
+                            <i class="star-3">★</i>
+                            {% endif %}
+                            {% if item.Comments > 5000 %}
+                            <i class="star-4">★</i>
+                            {% endif %}
+                            {% if item.Comments > 10000 %}
+                            <i class="star-5">★</i>
+                            {% endif %}
+                    </td>
                 </tr>
                 </table>
                 {% if item.Highlights %}
